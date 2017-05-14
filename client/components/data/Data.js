@@ -8,10 +8,12 @@ class Data extends Component {
    super(props);
 
    this.state = {
-     array: []
+     array: [],
+     ingredient: []
    };
 
    this.renderRecipes = this.renderRecipes.bind(this);
+   this.renderIngredients = this.renderIngredients.bind(this);
  }
 
  componentDidMount(){
@@ -20,7 +22,10 @@ class Data extends Component {
      .then(({ data })=> {
        console.log(data);
        this.setState(
-         { array: data.recipes }
+         {
+          ingredient: data.recipes,
+          array: data.recipes[0].Ingredients
+          }
        );
      })
      .catch((err)=> {})
@@ -30,9 +35,10 @@ class Data extends Component {
    return(
      <div>
        <h3>Recipes</h3>
-       <ul className="list-group">
+       <div className="list-group">
           {this.renderRecipes()}
-       </ul>
+          {this.renderIngredients()}
+       </div>
      </div>
    );
  }
@@ -42,11 +48,22 @@ class Data extends Component {
      return (
        <li className="list-group-item" key={index.name}>
            <p>{index.name}</p>
-           <p>bla</p>
+           <p>{index.amount}</p>
        </li>
      );
    });
  }
+  
+renderIngredients() {
+   return _.map(this.state.ingredient, Ingredient => {
+     return (
+       <div key={Ingredient.name}>
+           <p>{Ingredient.name}</p>
+       </div>
+     );
+   });
+ }
+
 }
 
 export default Data;
