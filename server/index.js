@@ -1,4 +1,5 @@
-import express from 'express';;
+import express from 'express';
+import cors from 'cors';
 import path from 'path';
 
 import webpack from 'webpack';
@@ -15,9 +16,12 @@ app.use(webpackMiddleware(compiler, {
 	publicPath: webpackConfig.output.publicPath,
 	noInfo: true
 }));
+
 app.use(webpackHotMiddleware(compiler));
 
-app.get('/*', (req, res) => {
+app.use(cors());
+
+app.get('/*', (req, res, next) => {
   res.sendFile(path.join(__dirname, './index.html'));
 });
 
