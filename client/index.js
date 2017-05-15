@@ -5,16 +5,14 @@ import style from '../src/styles/main.scss';
 
 import App from './components/App';
 import Greetings from './components/Greetings';
-import SignupPage from './components/signup/SignupPage';
-import Data from './components/data/Data';
+import Recipes from './components/data/Recipes';
 
 render(
 	<Router>
 	<App>
 	<Switch>
 	<Route exact path="/" component={Greetings} />
-	<Route path="/signup" component={SignupPage} />
-	<Route path="/data" component={Data} />
+	<Route path="/recipes" component={Recipes} />
 	</Switch>
 	</App>
 	</Router>
